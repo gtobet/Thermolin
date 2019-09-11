@@ -47,8 +47,6 @@ void PIN_ROTARY_A_ISR()
 {
   cli();
   ROTARY_ROTATION_flag = true;
-  PAGE_counter = 2;
-  PAGE_update_tft = true;
   	
   static unsigned long last_interrupt_timeA = 0;
   unsigned long interrupt_time = millis();
@@ -59,6 +57,9 @@ void PIN_ROTARY_A_ISR()
  	{
     if(digitalRead(PIN_ROTARY_B) == LOW)
     {
+      PAGE_counter = 2;
+      PAGE_update_tft = true;
+      
       if(target_temperature > 15)
       {
         if(((int)(target_temperature*10)%5))
@@ -77,8 +78,6 @@ void PIN_ROTARY_B_ISR()
 {
   cli();
   ROTARY_ROTATION_flag = true;
-  PAGE_counter = 2;
-  PAGE_update_tft = true;
   
   static unsigned long last_interrupt_timeB = 0;
   unsigned long interrupt_time = millis();
@@ -89,6 +88,9 @@ void PIN_ROTARY_B_ISR()
   {
     if(digitalRead(PIN_ROTARY_A) == LOW)
     {
+      PAGE_counter = 2;
+      PAGE_update_tft = true;
+      
       if(target_temperature < 25)
       {
         if(((int)(target_temperature*10)%5))

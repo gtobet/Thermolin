@@ -35,7 +35,6 @@ extern BlynkWifi        Blynk;
 
 
 //#########################Prototypes######################################
-
 void Blynk_timer_read(void);
 void Blynk_Init(void);
 void Blynk_updateAppTemp(void);
