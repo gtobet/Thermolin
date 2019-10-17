@@ -6,7 +6,7 @@
 bool  		    status_heating;
 float 		    target_temperature =           							              19;
 float 		    man_target_temperature =       						 	              15;
-float 		    auto_target_temperature_day =  						 	              19;
+float 		    auto_target_temperature_day =  						 	              20;
 float 		    auto_target_temperature_night =							              16;
 float 		    DHT_temperature_tmp =          							               0;
 float 		    DHT_humidity_tmp =           							                 0;
@@ -16,7 +16,7 @@ int   		    heating_mode =                 						 	               2;  //1 = Auto
 
 bool          HEATING_MODE_flag =         						 	              true;
 bool          CONNECTED_flag =            						 	             false;
-bool          AUTO_MODE_DAY;
+bool          AUTO_MODE_DAY =                                         true;
 bool          AUTO_MODE	=											                       false;
 
 byte          PAGE_counter =              						     	             0;

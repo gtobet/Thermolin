@@ -6,7 +6,7 @@
 #include "ThermolinDHT.h"
 
 
-#define HYSTERESE 0.5
+#define HYSTERESE 0.25
 
 void setup()
 {
@@ -45,15 +45,16 @@ void loop()
 
 
   //Control Relay................................
-  if(target_temperature - HYSTERESE > DHT_temperature)
-  {
-    digitalWrite(PIN_RELAY, HEATING_ON);
-    status_heating = true;
-  }
-  else
+  if(DHT_temperature > target_temperature + HYSTERESE)
   {
     digitalWrite(PIN_RELAY, HEATING_OFF);
     status_heating = false;
   }
+  else if(DHT_temperature < target_temperature - HYSTERESE)
+  {
+    digitalWrite(PIN_RELAY, HEATING_ON);
+    status_heating = true;
+  }
+  
   //.............................................
 }
