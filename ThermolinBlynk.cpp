@@ -3,7 +3,6 @@
 #include "Pinout.h"
 #include "ThermolinDHT.h"
 
-
 //##############################Variables##################################
 
 char  auth[] =   "1ccc2723f0424deb9a2e340f65359b36";
@@ -44,30 +43,45 @@ BLYNK_WRITE(VPIN_MAN_TARGET_TEMPERATURE)
 {
   HEATING_MODE_flag = true;
   man_target_temperature = param.asDouble();
+  
+  EEPROM_write_float(ADR_man_temp,man_target_temperature);
+  EEPROM.commit();
 }
 
 BLYNK_WRITE(VPIN_HEATING_MODE)
 {
   HEATING_MODE_flag = true;
   heating_mode = param.asInt();
+  
+  EEPROM.write(ADR_heating_mode,heating_mode);
+  EEPROM.commit();
 }
 
 BLYNK_WRITE(VPIN_AUTO_TARGET_TEMPERATURE_DAY)
 {
   HEATING_MODE_flag = true;
   auto_target_temperature_day = param.asDouble();
+
+  EEPROM_write_float(ADR_auto_temp_day, auto_target_temperature_day);
+  EEPROM.commit();
 }
 
 BLYNK_WRITE(VPIN_AUTO_TARGET_TEMPERATURE_NIGHT)
 {
   HEATING_MODE_flag = true;
   auto_target_temperature_night = param.asDouble();
+
+  EEPROM_write_float(ADR_auto_temp_night, auto_target_temperature_night);
+  EEPROM.commit();
 }
 
 BLYNK_WRITE(VPIN_AUTO_MODE_DAY)
 {
   HEATING_MODE_flag = true;
   AUTO_MODE_DAY = param.asInt();
+  
+  EEPROM.write(ADR_AUTO_MODE_DAY,AUTO_MODE_DAY);
+  EEPROM.commit();
 }
 
 void Blynk_updateAppTemp()

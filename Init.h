@@ -3,13 +3,21 @@
 
 #include <TFT_eSPI.h>
 #include "DHTesp.h"
-
+#include <EEPROM.h>
 
 //##############################Defines####################################
 
 #define HEATING_OFF  			     HIGH
 #define HEATING_ON   			      LOW
 #define BOUNCING_TIME_ROTATION    5
+
+
+//EEPROM adresses
+#define ADR_heating_mode          1
+#define ADR_AUTO_MODE_DAY         2
+#define ADR_man_temp              3
+#define ADR_auto_temp_day         7
+#define ADR_auto_temp_night      11
 
 //#########################################################################
 
@@ -63,6 +71,7 @@ extern TFT_eSPI                   tft;
 void HW_Init(void);
 void PIN_ROTARY_A_ISR(void);
 void PIN_ROTARY_B_ISR(void);
-
+float EEPROM_read_float(int address);
+void EEPROM_write_float(int address, float value);
 //#########################################################################
 #endif //_INIT_H

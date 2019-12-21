@@ -5,28 +5,40 @@
 #include "ThermolinTFT.h"
 #include "ThermolinDHT.h"
 
-
 #define HYSTERESE 0.25
 
+//Reset Function
+void(* resetFunc) (void) = 0;
 void setup()
 {
-  Blynk_Init();
   HW_Init();
+  Blynk_Init();
 
   //Wait 2.5 sek for connecting to Wifi
   int counter = 0;
   while(WiFi.status() != WL_CONNECTED || counter < 5)
   {
-    delay(500);
+    delay(100);
     counter++;
   }
   
   update_Weather_Data();
   
   //Debug console
-  //Serial.begin(9600);
-}
+  Serial.begin(9600);
 
+  //Read out EEPROM
+  EEPROM.begin(512);
+  delay(100);
+  
+  man_target_temperature = EEPROM_read_float(ADR_man_temp);
+  auto_target_temperature_day = EEPROM_read_float(ADR_auto_temp_day);
+  auto_target_temperature_night = EEPROM_read_float(ADR_auto_temp_night);
+
+  AUTO_MODE_DAY = EEPROM.read(ADR_AUTO_MODE_DAY);
+  heating_mode = EEPROM.read(ADR_heating_mode);
+  
+}
 void loop()
 {
   Blynk.run();
@@ -57,4 +69,11 @@ void loop()
   }
   
   //.............................................
+
+  //****************HW Reset*********************
+  if(millis() > 30000){
+    resetFunc();
+    delay(50); 
+  }
+  //*********************************************
 }

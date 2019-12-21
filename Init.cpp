@@ -1,5 +1,6 @@
 #include "Init.h"
 #include "Pinout.h"
+#include "ThermolinDHT.h"
 
 //##############################Variables##################################
 
@@ -107,12 +108,17 @@ void HW_Init()
 {
 	//Initialize Relay
   digitalWrite(PIN_RELAY, HEATING_OFF);
+  delay(100);
   pinMode(PIN_RELAY, OUTPUT);
+  delay(100);
   pinMode(PIN_ROTARY_BUTTON,INPUT);
-  	
+  delay(100);
   //Initialize Temp Sensor
   dht.setup(PIN_DHT, DHTesp::DHT22);
   delay(50);
+  DHT_temperature = dht.getTemperature();
+  DHT_humidity = dht.getHumidity();
+  delay(100);
   	
   //Initialize Display
   tft.init();
@@ -124,4 +130,23 @@ void HW_Init()
   pinMode(PIN_ROTARY_B, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(PIN_ROTARY_A), PIN_ROTARY_A_ISR, RISING);
   attachInterrupt(digitalPinToInterrupt(PIN_ROTARY_B), PIN_ROTARY_B_ISR, RISING);
+}
+
+void EEPROM_write_float(int address, float value)
+{
+   byte* p = (byte*)(void*)&value;
+   for (int i = 0; i < sizeof(value); i++){
+    EEPROM.write(address++, *p++);
+   }
+
+}
+
+float EEPROM_read_float(int address)
+{
+   float value = 0.0;
+   byte* p = (byte*)(void*)&value;
+   for (int i = 0; i < sizeof(value); i++){
+     *p++ = EEPROM.read(address++);
+   }
+   return value;
 }
