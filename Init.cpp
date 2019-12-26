@@ -110,23 +110,25 @@ void HW_Init()
 {
 	//Initialize Relay
   digitalWrite(PIN_RELAY, HEATING_OFF);
-  delay(100);
+  delay(50);
   pinMode(PIN_RELAY, OUTPUT);
-  delay(100);
+  delay(50);
   pinMode(PIN_ROTARY_BUTTON,INPUT);
-  delay(100);
+  delay(50);
+  
   //Initialize Temp Sensor
   dht.setup(PIN_DHT, DHTesp::DHT22);
   delay(50);
   DHT_temperature = dht.getTemperature();
   DHT_humidity = dht.getHumidity();
-  delay(100);
+  delay(50);
   	
   //Initialize Display
   tft.init();
   tft.setRotation(0);
   tft.fillScreen(TFT_BLACK);
-  	
+  delay(50);
+  
   //Initialize Rotary Encoder
   pinMode(PIN_ROTARY_A, INPUT_PULLUP);
   pinMode(PIN_ROTARY_B, INPUT_PULLUP);
