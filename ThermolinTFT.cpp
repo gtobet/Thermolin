@@ -39,6 +39,7 @@ void TFT_drawWeatherPage()
   tft.setTextSize(1);
   tft.setTextFont(6); 
   tft.setCursor(5,110);
+  tft.fillRect(5,104,123,45,TFT_BLACK);
   tft.print(currentWeather.temp,1);
 
   //Draw Meteocon
