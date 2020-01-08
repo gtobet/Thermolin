@@ -118,7 +118,7 @@ void HW_Init()
   
   //Initialize Temp Sensor
   dht.setup(PIN_DHT, DHTesp::DHT22);
-  delay(50);
+  delay(100);
   DHT_temperature = dht.getTemperature();
   DHT_humidity = dht.getHumidity();
   delay(50);
